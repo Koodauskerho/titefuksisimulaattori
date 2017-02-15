@@ -16,7 +16,7 @@
                 Paina [Return] aloittaaksesi pelin.
 
 ;wait()
-;nimi = prompt("Anna pelihahmosi nimi:")
+;nimi = prompt("Anna pelihahmosi nimi:", "Jukka")
 Opiskelet viimeistä vuotta lukiossa. Et vielä tiedä mitä haluaisit opiskella.
 Olet viettänyt suuren osan lapsuudestasi tietokoneiden ääressä. Peräseudulla
 saadun sivistyksesi vuoksi sinulla ei ole käsitystä kuinka matalalla tasolla

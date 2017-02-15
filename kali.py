@@ -57,7 +57,7 @@ class Kali:
             self.row += 1
         self.scr.refresh()
 
-    def prompt(self, text):
+    def prompt(self, text, default=""):
         if isinstance(text, str):
             text = text.split("\n")
 
@@ -73,20 +73,20 @@ class Kali:
             rivi = text[i]
             rx = 40 - len(rivi)//2
             self.scr.addstr(3+i, rx, rivi)
-        #rectangle(self.scr, 1, 1, 10, 10)
 
         self.scr.addstr(4+len(text), x1+2, " "*maxlen, curses.A_REVERSE)
 
+        ret = default
+        self.scr.addstr(4+len(text), x1+2, ret[-maxlen:] + " "*(maxlen-len(ret)), curses.A_REVERSE)
         self.scr.refresh()
-
-        ret = ""
 
         while True:
             c = self.scr.getch()
             if c == 127:
                 ret = ret[:-1]
             elif c == ord('\n'):
-                break
+                if len(ret) > 0:
+                    break
             else:
                 ret += chr(c)
             self.scr.addstr(4+len(text), x1+2, ret[-maxlen:] + " "*(maxlen-len(ret)), curses.A_REVERSE)

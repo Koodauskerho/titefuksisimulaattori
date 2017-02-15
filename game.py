@@ -2,6 +2,7 @@ from kali import Kali
 
 class Game():
     def __init__(self, nodes):
+        self.__kali = None
         self.__nodes = nodes
         self.__vars = {
                 'next': self.__next,
@@ -25,8 +26,8 @@ class Game():
     def __print(self, text):
         self.__kali.output(str(text))
 
-    def __prompt(self, text):
-        return self.__kali.prompt(text)
+    def __prompt(self, text, default=""):
+        return self.__kali.prompt(text, default)
 
     def __wait(self):
         self.__kali.wait_enter()
