@@ -23,10 +23,10 @@ class Game():
         self.__nextid = nid
 
     def __print(self, text):
-        self.__kali.output(str(text).split("\n"))
+        self.__kali.output(str(text))
 
     def __prompt(self, text):
-        pass
+        return self.__kali.prompt(text)
 
     def __wait(self):
         self.__kali.wait_enter()
@@ -39,7 +39,6 @@ class Game():
             node = self.__node
 
             self.__kali.clear()
-            self.__kali.output(node["file"])
 
             for block in node["data"]:
                 if block["type"] == "code":

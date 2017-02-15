@@ -1,6 +1,7 @@
 # Käyttö liittymä
 
 import curses
+from curses.textpad import rectangle
 
 class Kali:
     def __init__(self):
@@ -11,6 +12,9 @@ class Kali:
         curses.noecho()
         self.scr.keypad(True)
         curses.cbreak()
+        curses.curs_set(False)
+
+        self.buf = []
 
     def __del__(self):
         curses.nocbreak()
@@ -18,17 +22,30 @@ class Kali:
         curses.echo()
         curses.endwin()
 
+    def __redraw(self):
+        buf = self.buf
+        self.clear()
+        self.output(buf)
+
+    def box(self, r1, c1, h, w):
+        for i in range(w-2):
+            self.scr.addch(r1, c1+1+i, "═")
+        for i in range(w-2):
+            self.scr.addch(r1+h-1, c1+1+i, "═")
+        for i in range(h-2):
+            self.scr.addch(r1+1+i, c1, "║")
+            self.scr.addch(r1+1+i, c1+w-1, "║")
+        self.scr.addch(r1, c1, "╔")
+        self.scr.addch(r1, c1+w-1, "╗")
+        self.scr.addch(r1+h-1, c1, "╚")
+        self.scr.addch(r1+h-1, c1+w-1, "╝")
+
     def clear(self):
         self.row = 0
+        del self.buf[:]
 
         self.scr.clear()
         self.scr.refresh()
-
-    def wait_enter(self):
-        while True:
-            c = self.scr.getch()
-            if c == ord('\n'):
-                return
 
     def output(self, text):
         if isinstance(text, str):
@@ -36,5 +53,52 @@ class Kali:
 
         for line in text:
             self.scr.addstr(self.row, 0, line)
+            self.buf.append(line)
             self.row += 1
         self.scr.refresh()
+
+    def prompt(self, text):
+        if isinstance(text, str):
+            text = text.split("\n")
+
+        maxlen = 0
+        for line in text:
+            if len(line) > maxlen:
+                maxlen = len(line)
+
+        x1 = 40 - maxlen//2 - 2
+        self.scr.clear()
+        self.box(1, x1, 6+len(text), maxlen+4)
+        for i in range(len(text)):
+            rivi = text[i]
+            rx = 40 - len(rivi)//2
+            self.scr.addstr(3+i, rx, rivi)
+        #rectangle(self.scr, 1, 1, 10, 10)
+
+        self.scr.addstr(4+len(text), x1+2, " "*maxlen, curses.A_REVERSE)
+
+        self.scr.refresh()
+
+        ret = ""
+
+        while True:
+            c = self.scr.getch()
+            if c == 127:
+                ret = ret[:-1]
+            elif c == ord('\n'):
+                break
+            else:
+                ret += chr(c)
+            self.scr.addstr(4+len(text), x1+2, ret[-maxlen:] + " "*(maxlen-len(ret)), curses.A_REVERSE)
+            self.scr.refresh()
+
+        # redraw buffer
+        self.__redraw()
+
+        return ret
+
+    def wait_enter(self):
+        while True:
+            c = self.scr.getch()
+            if c == ord('\n'):
+                return

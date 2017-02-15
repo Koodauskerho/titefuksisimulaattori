@@ -1,10 +1,22 @@
 #Kaikki '#'-merkillä alkavat rivit ovat kommentteja
 #Kaikki ';'-merkillä alkavat rivit ovat koodi rivejä
 #Koodia voi suorittaa vain ennen ja jälkeen tekstiä, ei välissä
-Tämä on TiTe-peli
 
-Paina [Return] jatkaaksesi eteenpäin.
+
+           _______ __ _______                          __ __
+          |       |__|       .-----.______.-----.-----|  |__|
+          |.|   | |  |.|   | |  -__|______|  _  |  -__|  |  |
+          `-|.  |-|__`-|.  |-|_____|      |   __|_____|__|__|
+            |:  |      |:  |   PRE-ALPHA  |__|
+            |::.|      |::.|  (c) 2017 opossumi
+            `---'      `---'
+
+          No fuksis were harmed in the making of this game.
+
+                Paina [Return] aloittaaksesi pelin.
+
 ;wait()
+;nimi = prompt("Anna pelihahmosi nimi:")
 Opiskelet viimeistä vuotta lukiossa. Et vielä tiedä mitä haluaisit opiskella.
 Olet viettänyt suuren osan lapsuudestasi tietokoneiden ääressä. Peräseudulla
 saadun sivistyksesi vuoksi sinulla ei ole käsitystä kuinka matalalla tasolla
@@ -12,5 +24,4 @@ osaamisesi oikeasti on.
 
 Päätät hakea opiskelemaan tietotekniikkaa Tampereen Teknilliseen Yliopistoon.
 Käyt pääsykokeissa ja mielestäsi sinulla meni hyvin.
-
 ;next(1)
