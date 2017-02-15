@@ -42,8 +42,7 @@ class Game():
                     code = "\n".join(block["data"])
                     exec(code, self.__vars)
                 elif block["type"] == "text":
-                    text = "\n".join(block["data"])
-                    self.__kali.output(text)
+                    self.__kali.output(block["data"])
 
             if not self.__nextid in self.__nodes:
                 self.__kali.output("ERROR: Tried going to invalid index %" % self.__nextid)
