@@ -5,24 +5,28 @@ class Game():
         self.__nodes = nodes
         self.__vars = {
                 'next': self.__next,
-                'prompt': self.__prompt,
                 'lose': self.__lose,
+                'print': self.__print,
+                'prompt': self.__prompt,
                 'wait': self.__wait,
                 }
         self.__node = self.__nodes[0]
         self.__nextid = -1
-
-    def __next(self, nid):
-        self.__nextid = nid
-
-    def __prompt(self, text):
-        pass
 
     def __lose(self, msg="HÄVISIT PELIN!"):
         self.__kali.clear()
         self.__kali.output(msg)
         self.__kali.wait_enter()
         raise RuntimeError("Player skill too low")
+
+    def __next(self, nid):
+        self.__nextid = nid
+
+    def __print(self, text):
+        self.__kali.output(str(text).split("\n"))
+
+    def __prompt(self, text):
+        pass
 
     def __wait(self):
         self.__kali.wait_enter()
