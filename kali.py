@@ -31,11 +31,10 @@ class Kali:
                 return
 
     def output(self, text):
-        if isinstance(text, list):
-            for line in text:
-                self.scr.addstr(self.row, 0, line)
-                self.row += 1
-        else:
-            self.scr.addstr(self.row, 0, text)
+        if isinstance(text, str):
+            text = text.split("\n")
+
+        for line in text:
+            self.scr.addstr(self.row, 0, line)
             self.row += 1
         self.scr.refresh()
