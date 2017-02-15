@@ -32,9 +32,7 @@ class Parser():
         node = {
                 'id': nid,
                 'file': fname,
-                'text': [],
-                'pre': [],
-                'post': []
+                'data': [],
                 }
         
         if nid in self.__nodes:
@@ -43,23 +41,31 @@ class Parser():
 
         # Data file parsing
         with open(fname, 'r') as f:
-            state = 0
+            state = -1
+            data = []
+            block = None
             for line in f:
                 if line[0] == '#':
                     continue
-                elif line[0] != ';':
-                    if state == 2:
-                        raise RuntimeError("Text after post-code in %s" % fname)
 
-                    node['text'].append(line[:-1])
-
+                if line[0] == ';':
+                    if state != 1:
+                        if block:
+                            data.append(block)
+                        block = {"type": "code", "data": []}
                     state = 1
+                    block["data"].append(line[1:-1])
                 else:
-                    if state == 0:
-                        node['pre'].append(line[1:-1])
-                    else:
-                        node['post'].append(line[1:-1])
-                        state = 2
+                    if state != 0:
+                        if block:
+                            data.append(block)
+                        block = {"type": "text", "data": []}
+                    state = 0
+                    block["data"].append(line[:-1])
+
+
+            data.append(block)
+            node["data"] = data
 
         self.__nodes[nid] = node
 

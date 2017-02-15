@@ -5,4 +5,5 @@ Avattuasi kirjeen kuitenkin löydät karun totuuden. Et päässytkään opiskele
 tietotekniikkaa. Olit ollut tymä ja luottanut pääseväsi sisään, minkä vuoksi
 olit läpällä laittanut seuraavaksi vaihtoehdoksi Automaatiotekniikan.
 
+;wait()
 ;lose("HÄVISIT PELIN!")
