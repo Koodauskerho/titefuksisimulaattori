@@ -64,6 +64,15 @@ class Game():
                 self.__kali.output("ERROR: Tried going to invalid index %s" % self.__nextid)
                 self.__kali.wait_enter()
                 return
+
+            # Temp variable cleanup
+            tbd = []
+            for key in self.__vars.keys():
+                if key[0] =='_':
+                    tbd.append(key)
+            for key in tbd:
+                del self.__vars[key]
+
             self.__node = self.__nodes[self.__nextid]
         self.stop()
 
