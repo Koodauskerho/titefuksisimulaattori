@@ -1,0 +1,11 @@
+Saat postissa kirjeen. Innostut, sillä tiedät sen olevan hyväksymiskirje
+haluamaasi oppilaitokseen.
+
+Millä avaat hyväksymiskirjeen?
+;v = askchoice([("p", "paperiveitsellä"), ("r", "repimällä")])
+;if v == 0:
+;	print("Viillät paperiveitsellä vahingossa rannevaltimosi.")
+;	wait()
+;	print("Pyörryt nähdessäsi paljon verta ja vuodat kuiviin.")
+;	wait()
+;	lose()

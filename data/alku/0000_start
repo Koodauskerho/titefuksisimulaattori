@@ -24,4 +24,5 @@ osaamisesi oikeasti on.
 
 Päätät hakea opiskelemaan tietotekniikkaa Tampereen Teknilliseen Yliopistoon.
 Käyt pääsykokeissa ja mielestäsi sinulla meni hyvin.
-;next(1)
+;_n = randomchoice([(1, 1), (999, 2)])
+;next(_n)

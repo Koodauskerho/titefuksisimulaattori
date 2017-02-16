@@ -27,6 +27,17 @@ class Kali:
         self.clear()
         self.output(buf)
 
+    def askchoice(self, choices):
+        for i, c in enumerate(choices):
+            self.scr.addstr(self.row+1+i, 2, "%s) %s" % (c[0].upper(), c[1]))
+        self.scr.refresh()
+        while True:
+            ch = self.scr.getch()
+            for i, c in enumerate(choices):
+                if ch == ord(c[0]):
+                    self.__redraw()
+                    return i
+
     def box(self, r1, c1, h, w):
         for i in range(w-2):
             self.scr.addch(r1, c1+1+i, "═")

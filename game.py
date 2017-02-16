@@ -1,18 +1,29 @@
 from kali import Kali
+import util
 
 class Game():
     def __init__(self, nodes):
         self.__kali = None
         self.__nodes = nodes
+        # Variables & funcions exposed to scripts
         self.__vars = {
+                # Functions
+                'askchoice': self.__askchoice,
                 'next': self.__next,
                 'lose': self.__lose,
                 'print': self.__print,
                 'prompt': self.__prompt,
+                'randomchoice': util.randomchoice,
                 'wait': self.__wait,
+
+                # Variables
+                'hp': 100
                 }
         self.__node = self.__nodes[0]
         self.__nextid = -1
+
+    def __askchoice(self, choices):
+        return self.__kali.askchoice(choices)
 
     def __lose(self, msg="HÄVISIT PELIN!"):
         self.__kali.clear()
@@ -48,12 +59,11 @@ class Game():
                 elif block["type"] == "text":
                     self.__kali.output(block["data"])
 
+            self.__kali.wait_enter()
             if not self.__nextid in self.__nodes:
-                self.__kali.output("ERROR: Tried going to invalid index %" % self.__nextid)
+                self.__kali.output("ERROR: Tried going to invalid index %s" % self.__nextid)
                 self.__kali.wait_enter()
                 return
-
-            self.__kali.wait_enter()
             self.__node = self.__nodes[self.__nextid]
         self.stop()
 
